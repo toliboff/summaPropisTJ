@@ -1,9 +1,8 @@
-function summaPropis(){
-	var sum=document.getElementById("summa").value;
-	sum=+sum.replace(/,/gi, ".");
+function summaPropis(num){
+	num=(num+"").replace(/,/gi, ".");
 	
-	var somon=Math.floor(sum);
-	var diram=((sum-Math.floor(sum))*100).toFixed();
+	var somon=Math.floor(num);
+	var diram=((num-Math.floor(num))*100).toFixed();
 	var smn=(somon+"").split("");
 	/*
 	if(smn.length==1){
@@ -36,8 +35,8 @@ function summaPropis(){
 		
 	}
 	
-	console.log(somon+" сомони "+diram+" дирам");
-	console.log(smn);
+	return somon+" сомони "+diram+" дирам";
+	
 	
 }
 
