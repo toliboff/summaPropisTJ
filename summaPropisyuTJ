@@ -1,28 +1,9 @@
+
 function summaPropis(num){
-	num=(num+"").replace(/,/gi, ".");
 	
 	var somon=Math.floor(num);
 	var diram=((num-Math.floor(num))*100).toFixed();
 	var smn=(somon+"").split("");
-	/*
-	if(smn.length==1){
-		somon=natural(somon);
-	}
-	else if(smn.length==2){
-		somon=dahi(somon);
-	}else if(smn.length==3){
-		somon=sadi(somon);
-	}
-	else if(smn.length==4){
-		somon=hazori(somon);
-	}else if(smn.length==5){
-		somon=dahHazori(somon);
-	}else if(smn.length==6){
-		somon=sadHazori(somon);
-	}else if(smn.length==7){
-		somon=million(somon);
-	}
-	*/
 	
 	switch(smn.length){
 		case 1:somon=natural(somon);break;
@@ -32,12 +13,17 @@ function summaPropis(num){
 		case 5:somon=dahHazori(somon);break;
 		case 6:somon=sadHazori(somon);break;
 		case 7:somon=million(somon);break;
+		case 8:somon=dahMillion(somon);break;
+		case 9:somon=sadMillion(somon);break;
+		case 10:somon=milliard(somon);break;
+		case 11:somon=dahMilliard(somon);break;
+		case 12:somon=sadMilliard(somon);break;
+		case 13:somon=trillion(somon);break;
+		case 14:somon=dahTrillion(somon);break;
+		case 15:somon=sadTrillion(somon);break;
 		
 	}
-	
 	return somon+" сомони "+diram+" дирам";
-	
-	
 }
 
 function natural(num){
@@ -120,16 +106,13 @@ function hazori(num){
 function dahHazori(num){
 	var x=(num+"").split("");
 	
-	if((x[1]==0) && (x[2]==0) && (x[3]==0 && x[4]==0)){
+	if(x[2]==0 && x[3]==0 && x[4]==0){
 		return dahi((x[0]+x[1])*1)+" хазор";
-	}else if(x[2]==0 && x[3]==0 && x[4]==0){
-		return dahi((x[0]+x[1])*1)+" хазор";
-	}else if(x[1]==0 && x[2]==0 && x[3]==0){
+	}else if(x[2]==0 && x[3]==0 && x[4]!=0){
 		return dahi((x[0]+x[1])*1)+" хазору "+natural((x[4])*1);
-	}
-	else if(x[1]==0 && x[2]==0){
+	}else if(x[2]==0 && x[3]!=0){
 		return dahi((x[0]+x[1])*1)+" хазору "+dahi((x[3]+x[4])*1);
-	}else if(x[1]==0 && x[2]!=0){
+	}else if(x[2]!=0){
 		return dahi((x[0]+x[1])*1)+" хазору "+sadi((x[2]+x[3]+x[4])*1);
 	}else {
 		return dahi((x[0]+x[1])*1)+" хазору "+sadi((x[2]+x[3]+x[4])*1);
@@ -159,24 +142,237 @@ function sadHazori(num){
 function million(num){
 	var x=(num+"").split("");
 	
-	if((x[1]==0) && (x[2]==0) && (x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0)){
+	if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0){
 		return natural(x[0]*1)+" миллион";
-	}else if((x[1]==0) && (x[2]==0) && (x[3]==0 && x[4]==0 && x[5]==0 && x[6]!=0)){
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]!=0){
 		return natural(x[0]*1)+" миллиону " + natural(x[6]*1);
-	}else if((x[1]==0) && (x[2]==0) && (x[3]==0 && x[4]==0 && x[5]!=0)){
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]!=0){
 		return natural(x[0]*1)+" миллиону " + dahi((x[5]+x[6])*1);
-	}else if((x[1]==0) && (x[2]==0) && (x[3]==0 && x[4]!=0 )){
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]!=0 ){
 		return natural(x[0]*1)+" миллиону " + sadi((x[4]+x[5]+x[6])*1);
-	}else if((x[1]==0) && (x[2]==0) && (x[3]!=0 )){
+	}else if(x[1]==0 && x[2]==0 && x[3]!=0 ){
 		return natural(x[0]*1)+" миллиону " + hazori((x[3]+x[4]+x[5]+x[6])*1);
-	}else if((x[1]==0) && (x[2]!=0)){
+	}else if(x[1]==0 && x[2]!=0){
 		return natural(x[0]*1)+" миллиону " + dahHazori((x[2]+x[3]+x[4]+x[5]+x[6])*1);
-	}else if((x[1]!=0)){
+	}else if(x[1]!=0){
 		return natural(x[0]*1)+" миллиону " + sadHazori((x[1]+x[2]+x[3]+x[4]+x[5]+x[6])*1);
 	}
 }
 
 function dahMillion(num){
-	return num;
+	var x=(num+"").split("");
 	
+	if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0){
+		return dahi((x[0]+x[1])*1)+" миллион";
+	}else if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиону " + natural(x[7]*1);
+	}else if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиону " + dahi((x[6]+x[7])*1);
+	}else if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиону " + sadi((x[5]+x[6]+x[7])*1);
+	}else if(x[2]==0 && x[3]==0 && x[4]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиону " + hazori((x[4]+x[5]+x[6]+x[7])*1);
+	}else if(x[2]==0 && x[3]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиону " + dahHazori((x[3]+x[4]+x[5]+x[6]+x[7])*1);
+	}else if(x[2]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиону " + sadHazori((x[2]+x[3]+x[4]+x[5]+x[6]+x[7])*1);
+	}else {
+		return dahi((x[0]+x[1])*1)+" миллиону " + sadHazori((x[2]+x[3]+x[4]+x[5]+x[6]+x[7])*1);
+	}
+}
+
+function sadMillion(num){
+	var x=(num+"").split("");
+	
+	if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллион";
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиону " + natural(x[8]*1) ;
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]!=0 ){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиону " + dahi((x[7]+x[8])*1) ;
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиону " + sadi((x[6]+x[7]+x[8])*1) ;
+	}else if(x[3]==0 && x[4]==0 && x[5]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиону " + hazori((x[5]+x[6]+x[7]+x[8])*1) ;
+	}else if(x[3]==0 && x[4]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиону " + dahHazori((x[4]+x[5]+x[6]+x[7]+x[8])*1) ;
+	}else if(x[3]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиону " + sadHazori((x[3]+x[4]+x[5]+x[6]+x[7]+x[8])*1) ;
+	}
+}
+
+function milliard(num){
+	var x=(num+"").split("");
+	
+	if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0){
+		return natural((x[0])*1)+" миллиард";
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]!=0){
+		return natural((x[0])*1)+" миллиарду " + natural((x[9])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]!=0){
+		return natural((x[0])*1)+" миллиарду " + dahi((x[8]+x[9])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]!=0){
+		return natural((x[0])*1)+" миллиарду " + sadi((x[7]+x[8]+x[9])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]!=0){
+		return natural((x[0])*1)+" миллиарду " + hazori((x[6]+x[7]+x[8]+x[9])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]!=0){
+		return natural((x[0])*1)+" миллиарду " + dahHazori((x[5]+x[6]+x[7]+x[8]+x[9])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]!=0){
+		return natural((x[0])*1)+" миллиарду " + sadHazori((x[4]+x[5]+x[6]+x[7]+x[8]+x[9])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]!=0){
+		return natural((x[0])*1)+" миллиарду " + million((x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9])*1);
+	}else if(x[1]==0 && x[2]!=0){
+		return natural((x[0])*1)+" миллиарду " + dahMillion((x[2]+x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9])*1);
+	}else if(x[1]!=0){
+		return natural((x[0])*1)+" миллиарду " + sadMillion((x[1]+x[2]+x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9])*1);
+	}
+}
+
+function dahMilliard(num){
+	var x=(num+"").split("");
+	
+	if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0){
+		return dahi((x[0]+x[1])*1)+" миллиард";
+	}else if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиарду "+ natural((x[10])*1);
+	}else if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиарду "+ dahi((x[9]+x[10])*1);
+	}else if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиарду "+ sadi((x[8]+x[9]+x[10])*1);
+	}else if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиарду "+ hazori((x[7]+x[8]+x[9]+x[10])*1);
+	}else if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиарду "+ dahHazori((x[6]+x[7]+x[8]+x[9]+x[10])*1);
+	}else if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиарду "+ sadHazori((x[5]+x[6]+x[7]+x[8]+x[9]+x[10])*1);
+	}else if(x[2]==0 && x[3]==0 && x[4]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиарду "+ million((x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10])*1);
+	}else if(x[2]==0 && x[3]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиарду "+ dahMillion((x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10])*1);
+	}else if(x[2]!=0){
+		return dahi((x[0]+x[1])*1)+" миллиарду "+ sadMillion((x[2]+x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10])*1);
+	}
+}
+
+function sadMilliard(num){
+	var x=(num+"").split("");
+	
+	if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]==0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиард";
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиарду " + natural((x[11])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиарду " + dahi((x[10]+x[11])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиарду " + sadi((x[9]+x[10]+x[11])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиарду " + hazori((x[8]+x[9]+x[10]+x[11])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиарду " + dahHazori((x[7]+x[8]+x[9]+x[10]+x[11])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиарду " + sadHazori((x[6]+x[7]+x[8]+x[9]+x[10]+x[11])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиарду " + million((x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11])*1);
+	}else if(x[3]==0 && x[4]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиарду " + dahMillion((x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11])*1);
+	}else if(x[3]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" миллиарду " + sadMillion((x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11])*1);
+	}
+	
+}
+
+function trillion(num){
+	var x=(num+"").split("");
+	
+	if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]==0 && x[12]==0){
+		return natural((x[0])*1)+" триллион";
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]==0 && x[12]!=0){
+		return natural((x[0])*1)+" триллиону "+natural((x[12])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]!=0){
+		return natural((x[0])*1)+" триллиону "+dahi((x[11]+x[12])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]!=0){
+		return natural((x[0])*1)+" триллиону "+sadi((x[10]+x[11]+x[12])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]!=0){
+		return natural((x[0])*1)+" триллиону "+hazori((x[9]+x[10]+x[11]+x[12])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]!=0){
+		return natural((x[0])*1)+" триллиону "+dahHazori((x[8]+x[9]+x[10]+x[11]+x[12])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]!=0){
+		return natural((x[0])*1)+" триллиону "+sadHazori((x[7]+x[8]+x[9]+x[10]+x[11]+x[12])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]!=0){
+		return natural((x[0])*1)+" триллиону "+million((x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]==0 && x[5]!=0){
+		return natural((x[0])*1)+" триллиону "+dahMillion((x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]==0 && x[4]!=0){
+		return natural((x[0])*1)+" триллиону "+sadMillion((x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12])*1);
+	}else if(x[1]==0 && x[2]==0 && x[3]!=0){
+		return natural((x[0])*1)+" триллиону "+milliard((x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12])*1);
+	}else if(x[1]==0 && x[2]!=0){
+		return natural((x[0])*1)+" триллиону "+dahMilliard((x[2]+x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12])*1);
+	}else if(x[1]!=0){
+		return natural((x[0])*1)+" триллиону "+sadMilliard((x[1]+x[2]+x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12])*1);
+	}
+}
+
+function dahTrillion(num){
+	var x=(num+"").split("");
+	
+	if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]==0 && x[12]==0 && x[13]==0){
+		return dahi((x[0]+x[1])*1)+" триллион";
+	}if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]==0 && x[12]==0 && x[13]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + natural((x[13])*1);
+	}if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]==0 && x[12]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + dahi((x[12]+x[13])*1);
+	}if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + sadi((x[11]+x[12]+x[13])*1);
+	}if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + hazori((x[10]+x[11]+x[12]+x[13])*1);
+	}if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + dahHazori((x[9]+x[10]+x[11]+x[12]+x[13])*1);
+	}if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + sadHazori((x[8]+x[9]+x[10]+x[11]+x[12]+x[13])*1);
+	}if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + million((x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13])*1);
+	}if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]==0 && x[6]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + dahMillion((x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13])*1);
+	}if(x[2]==0 && x[3]==0 && x[4]==0 && x[5]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + sadMillion((x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13])*1);
+	}if(x[2]==0 && x[3]==0 && x[4]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + milliard((x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13])*1);
+	}if(x[2]==0 && x[3]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + dahMilliard((x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13])*1);
+	}if(x[2]!=0){
+		return dahi((x[0]+x[1])*1)+" триллиону " + sadMilliard((x[2]+x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13])*1);
+	}
+}
+
+function sadTrillion(num){
+	
+	var x=(num+"").split("");
+	
+	if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]==0 && x[12]==0 && x[13]==0 && x[14]==0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллион";
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]==0 && x[12]==0 && x[13]==0 && x[14]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + natural((x[14])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]==0 && x[12]==0 && x[13]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + dahi((x[13]+x[14])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]==0 && x[12]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + sadi((x[12]+x[13]+x[14])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]==0 && x[11]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + hazori((x[11]+x[12]+x[13]+x[14])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]==0 && x[10]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + dahHazori((x[10]+x[11]+x[12]+x[13]+x[14])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]==0 && x[9]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + sadHazori((x[9]+x[10]+x[11]+x[12]+x[13]+x[14])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]==0 && x[8]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + million((x[8]+x[9]+x[10]+x[11]+x[12]+x[13]+x[14])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]==0 && x[7]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + dahMillion((x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13]+x[14])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]==0 && x[6]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + sadMillion((x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13]+x[14])*1);
+	}else if(x[3]==0 && x[4]==0 && x[5]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + milliard((x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13]+x[14])*1);
+	}else if(x[3]==0 && x[4]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + dahMilliard((x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13]+x[14])*1);
+	}else if(x[3]!=0){
+		return sadi((x[0]+x[1]+x[2])*1)+" триллиону " + sadMilliard((x[3]+x[4]+x[5]+x[6]+x[7]+x[8]+x[9]+x[10]+x[11]+x[12]+x[13]+x[14])*1);
+	}
 }
